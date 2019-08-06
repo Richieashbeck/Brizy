@@ -2631,19 +2631,19 @@ body.modal-open .mm-slideout {
   .brz .brz-b,
   .brz .brz-strong {
     font-weight: 700; }
-  .brz .brz-a {
+  .brz .brz-a:not(.brz-btn) {
     color: #3dbfe8;
     text-decoration: none;
     background-color: transparent;
     -webkit-text-decoration-skip: objects;
     -webkit-box-shadow: none;
             box-shadow: none; }
-    .brz .brz-a[href]:hover {
+    .brz .brz-a:not(.brz-btn)[href]:hover {
       color: #1aabd8;
       -webkit-box-shadow: none;
               box-shadow: none;
       cursor: pointer; }
-    .brz .brz-a:focus, .brz .brz-a:active, .brz .brz-a:hover {
+    .brz .brz-a:not(.brz-btn):focus, .brz .brz-a:not(.brz-btn):active, .brz .brz-a:not(.brz-btn):hover {
       outline: none; }
   .brz .brz-a.brz-btn[href] {
     text-decoration: none; }
@@ -6754,6 +6754,10 @@ body.modal-open .mm-slideout {
       text-decoration: none; }
     .brz .brz-btn .brz-span {
       display: block; }
+    .brz .brz-btn .brz-icon-svg {
+      -webkit-box-flex: 1;
+          -ms-flex: 1 0 auto;
+              flex: 1 0 auto; }
   .brz .buttons {
     margin: -10px;
     -webkit-box-align: center;
