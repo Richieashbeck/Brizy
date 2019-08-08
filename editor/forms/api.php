@@ -65,11 +65,6 @@ class Brizy_Editor_Forms_Api {
 			add_action( 'wp_ajax_' . self::AJAX_DELETE_INTEGRATION, array( $this, 'deleteIntegration' ) );
 
 			add_filter( 'brizy_form_submit_data', array( $this, 'handleFileTypeFields' ), - 100, 2 );
-
-			add_action( 'wp_ajax_' . self::AJAX_VALIDATE_RECAPTCHA_ACCOUNT, array(
-				$this,
-				'validateRecaptchaAccount'
-			) );
 		}
 
 		add_action( 'wp_ajax_' . self::AJAX_SUBMIT_FORM, array( $this, 'submit_form' ) );

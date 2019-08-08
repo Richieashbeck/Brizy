@@ -69,7 +69,7 @@ class Brizy_Editor_Accounts_RecaptchaAccount extends Brizy_Editor_Accounts_Abstr
 	 */
 	public function validate() {
 
-		if ( ! isset( $_REQUEST['secretKey'] ) ) {
+		if ( ! isset( $_REQUEST['secretkey'] ) ) {
 			$this->error( 400, 'Invalid secret provided' );
 		}
 
@@ -80,7 +80,7 @@ class Brizy_Editor_Accounts_RecaptchaAccount extends Brizy_Editor_Accounts_Abstr
 		$http     = new WP_Http();
 		$response = $http->post( 'https://www.google.com/recaptcha/api/siteverify', array(
 			'body' => array(
-				'secret'   => $_REQUEST['secretKey'],
+				'secret'   => $_REQUEST['secretkey'],
 				'response' => $_REQUEST['response']
 			)
 		) );
