@@ -90,42 +90,6 @@ class Brizy_Editor_Forms_Api {
 		}
 	}
 
-	public function validateRecaptchaAccount() {
-		$this->authorize();
-		try {
-
-			if ( ! isset( $_REQUEST['secretKey'] ) ) {
-				$this->error( 400, 'Invalid secret provided' );
-			}
-
-			if ( ! isset( $_REQUEST['response'] ) ) {
-				$this->error( 400, 'Invalid response provided' );
-			}
-
-			$http     = new WP_Http();
-			$response = $http->post( 'https://www.google.com/recaptcha/api/siteverify', array(
-				'body' => array(
-					'secret'   => $_REQUEST['secretKey'],
-					'response' => $_REQUEST['response']
-				)
-			) );
-
-			$body = wp_remote_retrieve_body( $response );
-
-			$responseJsonObject = json_decode( $body );
-
-			if ( ! is_object( $responseJsonObject ) || ! $responseJsonObject->success ) {
-				$this->error( 400, "Unable to validation request" );
-			}
-
-			$this->success( null );
-
-		} catch ( Exception $exception ) {
-			Brizy_Logger::instance()->exception( $exception );
-			$this->error( $exception->getCode(), $exception->getMessage() );
-			exit;
-		}
-	}
 
 	public function get_form() {
 		try {
@@ -142,7 +106,7 @@ class Brizy_Editor_Forms_Api {
 			$this->error( 404, 'Form not found' );
 
 		} catch ( Exception $exception ) {
-			Brizy_Logger::instance()->exception( $exception );
+			Brizy_Logger::instance()->critical( $exception->getMessage(), array( $exception ) );
 			$this->error( $exception->getCode(), $exception->getMessage() );
 			exit;
 		}
@@ -164,7 +128,7 @@ class Brizy_Editor_Forms_Api {
 			$this->error( 400, $validation_result );
 
 		} catch ( Exception $exception ) {
-			Brizy_Logger::instance()->exception( $exception );
+			Brizy_Logger::instance()->critical( $exception->getMessage(), array( $exception ) );
 			$this->error( $exception->getCode(), $exception->getMessage() );
 			exit;
 		}
@@ -182,7 +146,7 @@ class Brizy_Editor_Forms_Api {
 				$this->error( 400, 'Invalid json object provided' );
 			}
 
-			if ( !isset( $_REQUEST['formId'] ) ) {
+			if ( ! isset( $_REQUEST['formId'] ) ) {
 				$this->error( 400, 'Invalid form id provided' );
 			}
 
@@ -203,7 +167,7 @@ class Brizy_Editor_Forms_Api {
 			$this->error( 400, $validation_result );
 
 		} catch ( Exception $exception ) {
-			Brizy_Logger::instance()->exception( $exception );
+			Brizy_Logger::instance()->critical( $exception->getMessage(), array( $exception ) );
 			$this->error( $exception->getCode(), $exception->getMessage() );
 			exit;
 		}
@@ -216,7 +180,7 @@ class Brizy_Editor_Forms_Api {
 			$manager->deleteFormById( $_REQUEST['formId'] );
 			$this->success( array() );
 		} catch ( Exception $exception ) {
-			Brizy_Logger::instance()->exception( $exception );
+			Brizy_Logger::instance()->critical( $exception->getMessage(), array( $exception ) );
 			$this->error( $exception->getCode(), $exception->getMessage() );
 			exit;
 		}
@@ -298,7 +262,7 @@ class Brizy_Editor_Forms_Api {
 			$this->success( 200 );
 
 		} catch ( Exception $exception ) {
-			Brizy_Logger::instance()->exception( $exception );
+			Brizy_Logger::instance()->critical( $exception->getMessage(), array( $exception ) );
 			$this->error( 400, $exception->getMessage() );
 			exit;
 		}
@@ -341,7 +305,7 @@ class Brizy_Editor_Forms_Api {
 					$attach_id = wp_insert_attachment( $attachment, $file['file'] );
 
 					if ( $attach_id instanceof WP_Error ) {
-						Brizy_Logger::instance()->error( 'Failed to handle upload', array( $attach_id ) );
+						Brizy_Logger::instance()->critical( 'Failed to handle upload', array( $attach_id ) );
 						throw new Exception( 'Failed to handle upload' );
 					}
 
@@ -389,7 +353,8 @@ class Brizy_Editor_Forms_Api {
 				$this->success( $integration );
 			}
 
-		} catch ( Exception $e ) {
+		} catch ( Exception $exception ) {
+			Brizy_Logger::instance()->critical( $exception->getMessage(), array( $exception ) );
 			$this->error( 400, $e->getMessage() );
 		}
 
