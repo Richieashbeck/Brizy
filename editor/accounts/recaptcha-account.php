@@ -90,7 +90,7 @@ class Brizy_Editor_Accounts_RecaptchaAccount extends Brizy_Editor_Accounts_Abstr
 		$responseJsonObject = json_decode( $body );
 
 		if ( ! is_object( $responseJsonObject ) || ! $responseJsonObject->success ) {
-			throw new Exception( "Unable to validation request" );
+			throw new Exception( "Unable to validate account" );
 		}
 
 		return true;
