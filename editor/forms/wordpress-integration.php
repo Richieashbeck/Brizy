@@ -121,8 +121,14 @@ class Brizy_Editor_Forms_WordpressIntegration extends Brizy_Editor_Forms_Abstrac
 
 		$get_object_vars = parent::jsonSerialize();
 
-		$get_object_vars['emailTo'] = $this->getEmailTo();
-		$get_object_vars['subject'] = $this->getSubject();
+		$get_object_vars['emailTo']   = $this->getEmailTo();
+		$get_object_vars['subject']   = $this->getSubject();
+		$get_object_vars['fromEmail'] = $this->getFromEmail();
+		$get_object_vars['fromName']  = $this->getFromName();
+		$get_object_vars['replayTo']  = $this->getReplayTo();
+		$get_object_vars['cc']        = $this->getCc();
+		$get_object_vars['bcc']       = $this->getBcc();
+		$get_object_vars['metaData']  = $this->getMetaData();
 
 		return $get_object_vars;
 	}
