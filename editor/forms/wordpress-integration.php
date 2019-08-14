@@ -100,6 +100,8 @@ class Brizy_Editor_Forms_WordpressIntegration extends Brizy_Editor_Forms_Abstrac
 
 		$email_body = $form->getEmailTemplateContent( $fields );
 
+		$email_body = $this->insertMetaDataFields( $email_body );
+
 		$headers    = apply_filters( 'brizy_form_email_headers', $headers, $fields, $form );
 		$email_body = apply_filters( 'brizy_form_email_body', $email_body, $fields, $form );
 

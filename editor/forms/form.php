@@ -342,8 +342,6 @@ class Brizy_Editor_Forms_Form extends Brizy_Admin_Serializable {
 
 		$content = implode( '<br>', $field_string );
 
-		$content = $this->insertMetaDataFields( $content );
-
 		return $content;
 	}
 }
