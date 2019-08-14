@@ -64,10 +64,6 @@ class Brizy_Editor_Forms_WordpressIntegration extends Brizy_Editor_Forms_Abstrac
 		$headers   = array();
 		$headers[] = 'Content-type: text/html; charset=UTF-8';
 
-		if ( $this->getSubject() ) {
-			$headers[] = "Subject: {$this->getSubject()}";
-		}
-
 		if ( $this->getEmailTo() ) {
 			$headers[] = "To: {$this->getEmailTo()}";
 		}
@@ -111,7 +107,7 @@ class Brizy_Editor_Forms_WordpressIntegration extends Brizy_Editor_Forms_Abstrac
 
 		return wp_mail(
 			null,
-			null,
+			$this->getSubject(),
 			$email_body,
 			$headers
 		);
