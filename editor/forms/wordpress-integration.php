@@ -110,8 +110,8 @@ class Brizy_Editor_Forms_WordpressIntegration extends Brizy_Editor_Forms_Abstrac
 		}
 
 		return wp_mail(
-			$recipients[0],
-			$this->getSubject(),
+			null,
+			null,
 			$email_body,
 			$headers
 		);
