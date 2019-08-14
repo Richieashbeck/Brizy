@@ -340,8 +340,10 @@ class Brizy_Editor_Forms_Form extends Brizy_Admin_Serializable {
 			$field_string[] = "{$field->label}: " . esc_html( $field->value );
 		}
 
-		// added meta data fields
+		$content = implode( '<br>', $field_string );
 
-		return implode( '<br>', $field_string );
+		$content = $this->insertMetaDataFields( $content );
+
+		return $content;
 	}
 }

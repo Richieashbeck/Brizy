@@ -87,9 +87,10 @@ class Brizy_Editor_Forms_WordpressIntegration extends Brizy_Editor_Forms_Abstrac
 		if ( $this->getFromEmail() ) {
 			$fromName = '';
 			if ( $this->getFromName() ) {
-				$fromName = "<{$this->getFromName()}>";
+				$headers[] = "From: \"{$this->getFromName()}\" <{$this->getFromEmail()}>";
+			} else {
+				$headers[] = "From: {$this->getFromEmail()}";
 			}
-			$headers[] = "From: {$fromName}{$this->getFromEmail()}";
 		}
 
 		$field_string = array();
